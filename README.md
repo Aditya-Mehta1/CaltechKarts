@@ -2,7 +2,7 @@
 
 ## Section 0: Summary
 Working Title: CaltechKart
-Team Members: Dhruv Verma, Aditya Mehta, Jacobo de Juan Millon
+Team Members: Dhruv Verma, [Aditya Mehta](https://aditya-mehta1.github.io/), Jacobo de Juan Millon
 Concept Statement: A 2D arcade racer on Caltech campus
 
 
