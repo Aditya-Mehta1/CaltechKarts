@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caltech Karts</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14171b;color:white;font:16px system-ui}canvas{display:block;width:1000px;height:500px}output{position:absolute;inset:0;display:grid;place-items:center;background:#14171b}output[hidden]{display:none}
+</style>
+<main>
+<section><canvas id="canvas" width="1000" height="500" tabindex="0" aria-label="Caltech Karts game"></canvas><output id="status" aria-live="polite">Loading Caltech Karts…</output></section>
+
+</main>
+<script>
+const canvas = document.getElementById('canvas');
+const statusText = document.getElementById('status');
+var Module = {
+ canvas,
+ setStatus(message) {
+   statusText.hidden = !message;
+   statusText.textContent = message;
+ },
+ onAbort() {
+   statusText.hidden = false;
+   statusText.textContent = 'The game stopped. Reload to try again.';
+ }
+};
+canvas.addEventListener('pointerdown', () => canvas.focus());
+window.addEventListener('keydown', event => {
+ if (document.activeElement === canvas && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(event.code)) event.preventDefault();
+});
+</script>
+<script src="./game.js"></script>
+</html>

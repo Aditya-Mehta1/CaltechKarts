@@ -4,30 +4,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Caltech Karts</title>
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100svh;background:#14171b;color:#f4f4ef;display:grid;place-items:center;font:16px/1.5 system-ui,sans-serif}main{width:min(100%,1000px);padding:12px}section{position:relative;aspect-ratio:2;background:#090a0c}canvas{display:block;width:100%;height:100%;touch-action:none}p{margin:.7rem 0;color:#d8d8d3}output{position:absolute;inset:0;display:grid;place-items:center;background:#14171b}output[hidden]{display:none}
+* { box-sizing: border-box }
+body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: #14171b; color: #d8d8d3; font: 16px/1.5 system-ui, sans-serif }
+main { width: min(1000px, calc(100% - 24px)) }
+section { position: relative; aspect-ratio: 2; overflow: hidden }
+iframe { position: absolute; inset: 0; width: 1000px; height: 500px; border: 0; transform-origin: top left }
+p { margin: .7rem 0 }
 </style>
 <main>
-<section><canvas id="canvas" width="1000" height="500" tabindex="0" aria-label="Caltech Karts game"></canvas><output id="status" aria-live="polite">Loading Caltech Karts…</output></section>
+<section><iframe src="./game.html" title="Caltech Karts game"></iframe></section>
 <p>Arrow keys to drive · Space to use an item</p>
 </main>
 <script>
-const canvas = document.getElementById('canvas');
-const statusText = document.getElementById('status');
-var Module = {
- canvas,
- setStatus(message) {
-   statusText.hidden = !message;
-   statusText.textContent = message;
- },
- onAbort() {
-   statusText.hidden = false;
-   statusText.textContent = 'The game stopped. Reload to try again.';
- }
-};
-canvas.addEventListener('pointerdown', () => canvas.focus());
-window.addEventListener('keydown', event => {
- if (document.activeElement === canvas && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(event.code)) event.preventDefault();
-});
+const frame = document.querySelector('iframe');
+// Scale the finished image. SDL needs the original 1000 × 500 coordinate space.
+new ResizeObserver(([entry]) => {
+  frame.style.transform = 'scale(' + entry.contentRect.width / 1000 + ')';
+}).observe(frame.parentElement);
 </script>
-<script src="./game.js"></script>
 </html>
